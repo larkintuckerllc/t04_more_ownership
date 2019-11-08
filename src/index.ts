@@ -1,56 +1,33 @@
-const doSomething = () => {
-  const x = 5;
-  console.log(`The value of x is: ${x}`); // 5
+const calculateLength = (arr: number[]): number => {
+  const len = arr.length;
+  arr.length = 0; // UNEXPECTED SIDE EFFECT
+  return len;
 }
 
-const doSomethingElse = () => {
-  const arr = [0, 1, 2];
-  console.log(`The first value of arr is: ${arr[0]}`); // 0
+const change = (arr: number[]) => {
+  arr.push(100);
 }
 
-const doEvenMore = () => {
-  const arr = [0, 1, 2];
-  arr.push(3);
-  console.log(`The fourth value of arr is: ${arr[3]}`); // 3
-}
-
-const doSomethingCrazy = () => {
-  const x = 5;
-  console.log(`The value of x is: ${x}`); // 5
-  const y = x;
-  console.log(`The value of y is: ${y}`); // 5
-
-  const arr = [0, 1, 2];
-  console.log(`The first value of arr is: ${arr[0]}`); // 0
-  const arr2 = arr;
-  console.log(`The first value of arr2 is: ${arr2[0]}`); // 0
-  console.log(`The first value of arr is: ${arr[0]}`); // 0
-}
-
-const makesCopy = (someNumber: number) => {
-  console.log(`The value of someNumber is: ${someNumber}`); // 5
-}
-
-const makesReferenceCopy = (someArray: number[]) => {
-  console.log(`The first value someArray is: ${someArray[0]}`); // 0
-}
-
-const returnsReference = (): number[] => [0, 1, 2];
-
-doSomething();
-doSomethingElse();
-doEvenMore();
-doSomethingCrazy();
-
-// FUNCTION PARAMETERS
-const x = 5;
-makesCopy(5);
-console.log(`The value of x is: ${x}`); // 5
+const firstTwo = (arr: number[]): number[] => arr.slice(0, 2);
 
 const arr = [0, 1, 2];
-makesReferenceCopy(arr);
-console.log(`The first value arr is: ${arr[0]}`); // 0
+const len = calculateLength(arr);
+console.log(`The length of ${arr} is ${len}`); // [] 3
 
-// FUNCTION RETURNS
-const arr1 = returnsReference();
-console.log(`The first value arr1 is: ${arr1[0]}`); // 0
+const arr1 = [0, 1, 2];
+const r1 = arr1;
+const r2 = arr1;
+const r3 = arr1;
+change(r3);
+console.log(`The value of r1 is: ${r1}`); // [0, 1, 2, 100]
+console.log(`The value of r2 is: ${r2}`); // [0, 1, 2, 100]
+console.log(`The value of r3 is: ${r3}`); // [0, 1, 2, 100]
+
+const arr2 = [0, 1, 2];
+const first = firstTwo(arr2);
+console.log(`The value of first is: ${first}`); // [0, 1]
+arr2.length = 0;
+console.log(`The value of first is: ${first}`); // [0, 1]
+
+const hello = 'hello';
+console.log(`The value of hello is: ${hello}`); // hello
